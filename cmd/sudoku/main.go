@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
+import "github.com/kpitt/sudoku2/internal/cmd"
 
 func main() {
-	fmt.Println("Welcome to Sudoku2!")
+	cmd.Execute()
 }
