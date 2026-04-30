@@ -362,6 +362,17 @@ func hasDuplicates(nums []int) bool {
 	return false
 }
 
+// RawString returns the board as a simple 81-character string.
+func (b *Board) RawString() string {
+	var out string
+	for r := 0; r < 9; r++ {
+		for c := 0; c < 9; c++ {
+			out += strconv.Itoa(b[r][c])
+		}
+	}
+	return out
+}
+
 // String returns a human-readable representation of the board.
 func (b *Board) String() string {
 	var out string
