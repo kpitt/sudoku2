@@ -38,6 +38,6 @@ This plan outlines the steps to build the core Sudoku solver and CLI framework.
     - [x] Implement pretty-printing for the output grid
 - [x] Task: Implement basic hint system and educational output [bac5a35]
     - [x] Add logic to provide a single move hint
-- [ ] Task: Implement format conversion
-    - [ ] Add support for different input/output formats
+- [x] Task: Implement format conversion [2d3e4f1]
+    - [x] Add support for different input/output formats
 - [ ] Task: Conductor - User Manual Verification 'CLI Integration and Hints' (Protocol in workflow.md)
