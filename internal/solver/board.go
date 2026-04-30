@@ -73,7 +73,69 @@ func (b *Board) IsSolved() bool {
 // Solve attempts to solve the Sudoku puzzle using a backtracking algorithm.
 // It modifies the board in-place and returns true if a solution is found.
 func (b *Board) Solve() bool {
+	// If the board is initially invalid, it's unsolvable.
+	if !b.IsValid() {
+		return false
+	}
+	return b.backtrack()
+}
+
+func (b *Board) backtrack() bool {
+	row, col, found := b.findEmptyCell()
+	if !found {
+		return true // No empty cells left, solved!
+	}
+
+	for num := 1; num <= 9; num++ {
+		if b.isSafe(row, col, num) {
+			b[row][col] = num
+			if b.backtrack() {
+				return true
+			}
+			b[row][col] = 0 // Backtrack
+		}
+	}
+
 	return false
+}
+
+func (b *Board) findEmptyCell() (int, int, bool) {
+	for r := 0; r < 9; r++ {
+		for c := 0; c < 9; c++ {
+			if b[r][c] == 0 {
+				return r, c, true
+			}
+		}
+	}
+	return 0, 0, false
+}
+
+func (b *Board) isSafe(row, col, num int) bool {
+	// Check row
+	for c := 0; c < 9; c++ {
+		if b[row][c] == num {
+			return false
+		}
+	}
+
+	// Check column
+	for r := 0; r < 9; r++ {
+		if b[r][col] == num {
+			return false
+		}
+	}
+
+	// Check box
+	startRow, startCol := row-row%3, col-col%3
+	for r := startRow; r < startRow+3; r++ {
+		for c := startCol; c < startCol+3; c++ {
+			if b[r][c] == num {
+				return false
+			}
+		}
+	}
+
+	return true
 }
 
 func (b *Board) getRow(r int) []int {
