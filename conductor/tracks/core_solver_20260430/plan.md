@@ -22,7 +22,7 @@ This plan outlines the steps to build the core Sudoku solver and CLI framework.
 - [x] Task: Implement Sudoku board representation and basic validation [3769ee7]
     - [x] Implement parsing logic
     - [x] Implement rule validation logic
-- [x] Task: Write failing tests for core solving algorithm [995f56a]
+- [x] Task: Write failing tests for core solving algorithm [1aaee0b]
     - [x] Create test cases for easy, medium, and hard puzzles
     - [x] Define expected output for each
 - [ ] Task: Implement core solving algorithm
