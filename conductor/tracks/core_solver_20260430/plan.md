@@ -25,7 +25,7 @@ This plan outlines the steps to build the core Sudoku solver and CLI framework.
 - [x] Task: Implement backtracking algorithm for 'check' command [1550190]
     - [x] Implement Backtracking algorithm
     - [x] Ensure it can find a solution (if one exists)
-- [x] Task: Implement deductive solving techniques for 'solve' command [3f8a2d1]
+- [x] Task: Implement deductive solving techniques for 'solve' command [608ed2c]
     - [x] Implement Naked Singles strategy
     - [x] Implement Hidden Singles strategy
     - [x] Implement iterative deduction loop
