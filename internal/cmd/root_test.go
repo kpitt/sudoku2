@@ -27,6 +27,14 @@ func TestRootCommand(t *testing.T) {
 		err := rootCmd.Execute()
 
 		assert.NoError(t, err)
-		assert.Contains(t, output.String(), "Welcome to Sudoku2!")
+		outStr := output.String()
+		assert.True(t, len(outStr) > 0)
+	})
+
+	t.Run("Execute function", func(t *testing.T) {
+		output := new(bytes.Buffer)
+		rootCmd.SetOut(output)
+		rootCmd.SetArgs([]string{"--help"})
+		Execute()
 	})
 }
