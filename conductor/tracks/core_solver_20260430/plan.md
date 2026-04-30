@@ -14,7 +14,7 @@ This plan outlines the steps to build the core Sudoku solver and CLI framework.
     - [x] Add `check` subcommand
 - [x] Task: Conductor - User Manual Verification 'Project Scaffolding and CLI Structure' (Protocol in workflow.md)
 
-## Phase 2: Core Solver Implementation (TDD)
+## Phase 2: Core Solver Implementation (TDD) [checkpoint: 0631304]
 - [x] Task: Write failing tests for Sudoku board representation and validation [26fadec]
     - [x] Define `Board` struct
     - [x] Write tests for parsing 81-char strings
@@ -30,7 +30,7 @@ This plan outlines the steps to build the core Sudoku solver and CLI framework.
     - [x] Implement Hidden Singles strategy
     - [x] Implement iterative deduction loop
     - [x] Ensure all tests pass
-- [ ] Task: Conductor - User Manual Verification 'Core Solver Implementation' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Core Solver Implementation' (Protocol in workflow.md)
 
 ## Phase 3: CLI Integration and Hints
 - [ ] Task: Integrate solver into 'solve' command with flag handling
