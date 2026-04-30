@@ -55,6 +55,27 @@ func (b *Board) IsValid() bool {
 	return true
 }
 
+// IsSolved checks if the board is completely filled and valid.
+func (b *Board) IsSolved() bool {
+	if !b.IsValid() {
+		return false
+	}
+	for r := 0; r < 9; r++ {
+		for c := 0; c < 9; c++ {
+			if b[r][c] == 0 {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+// Solve attempts to solve the Sudoku puzzle using a backtracking algorithm.
+// It modifies the board in-place and returns true if a solution is found.
+func (b *Board) Solve() bool {
+	return false
+}
+
 func (b *Board) getRow(r int) []int {
 	return b[r][:]
 }
