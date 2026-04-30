@@ -19,9 +19,9 @@ This plan outlines the steps to build the core Sudoku solver and CLI framework.
     - [x] Define `Board` struct
     - [x] Write tests for parsing 81-char strings
     - [x] Write tests for basic Sudoku rule validation (rows, cols, boxes)
-- [ ] Task: Implement Sudoku board representation and basic validation
-    - [ ] Implement parsing logic
-    - [ ] Implement rule validation logic
+- [x] Task: Implement Sudoku board representation and basic validation [0d4a7b2]
+    - [x] Implement parsing logic
+    - [x] Implement rule validation logic
 - [ ] Task: Write failing tests for core solving algorithm
     - [ ] Create test cases for easy, medium, and hard puzzles
     - [ ] Define expected output for each
