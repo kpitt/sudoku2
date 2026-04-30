@@ -14,14 +14,13 @@ func TestSolveCommand(t *testing.T) {
 	t.Run("no args", func(t *testing.T) {
 		rootCmd.SetArgs([]string{"solve"})
 		err := rootCmd.Execute()
-		assert.NoError(t, err)
-		// Note: rootCmd.SetOut might not capture fmt.Println in solveCmd.Run
-		// I should refactor solveCmd to use cmd.OutOrStdout()
+		assert.Error(t, err) // Should error due to ExactArgs(1)
 	})
 
 	t.Run("with puzzle", func(t *testing.T) {
 		rootCmd.SetArgs([]string{"solve", "003020600900305001001806400008102900700000008006708200002609500800203009005010300"})
 		err := rootCmd.Execute()
 		assert.NoError(t, err)
+		assert.Contains(t, output.String(), "Solved Puzzle")
 	})
 }
