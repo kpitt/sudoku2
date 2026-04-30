@@ -3,7 +3,7 @@
 This plan outlines the steps to build the core Sudoku solver and CLI framework.
 
 ## Phase 1: Project Scaffolding and CLI Structure
-- [x] Task: Initialize Cobra CLI and project structure
+- [x] Task: Initialize Cobra CLI and project structure [8589b29]
     - [x] Install Cobra dependency
     - [x] Initialize Cobra root command in `cmd/sudoku/`
     - [x] Setup basic project layout (internal/pkg/cmd)
