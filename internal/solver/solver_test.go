@@ -6,13 +6,13 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestBoard_Solve(t *testing.T) {
+func TestBoard_SolveBacktracking(t *testing.T) {
 	t.Run("easy puzzle", func(t *testing.T) {
 		input := "530070000600195000098000060800060003400803001700020006060000280000419005000080079"
 		board, err := ParseBoard(input)
 		assert.NoError(t, err)
 
-		solved := board.Solve()
+		solved := board.SolveBacktracking()
 		assert.True(t, solved)
 		assert.True(t, board.IsSolved())
 
@@ -26,7 +26,20 @@ func TestBoard_Solve(t *testing.T) {
 		board := Board{
 			{5, 5, 0, 0, 0, 0, 0, 0, 0},
 		}
-		solved := board.Solve()
+		solved := board.SolveBacktracking()
 		assert.False(t, solved)
+	})
+}
+
+func TestBoard_SolveDeductive(t *testing.T) {
+	t.Run("easy puzzle - naked singles", func(t *testing.T) {
+		// A puzzle that can be solved by naked singles alone (or mostly)
+		input := "003020600900305001001806400008102900700000008006708200002609500800203009005010300"
+		board, err := ParseBoard(input)
+		assert.NoError(t, err)
+
+		solved := board.SolveDeductive()
+		assert.True(t, solved)
+		assert.True(t, board.IsSolved())
 	})
 }

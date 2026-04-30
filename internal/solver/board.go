@@ -70,14 +70,144 @@ func (b *Board) IsSolved() bool {
 	return true
 }
 
-// Solve attempts to solve the Sudoku puzzle using a backtracking algorithm.
+// SolveBacktracking attempts to solve the Sudoku puzzle using a backtracking algorithm.
 // It modifies the board in-place and returns true if a solution is found.
-func (b *Board) Solve() bool {
+// This is used for the 'check' command to verify solutions and uniqueness.
+func (b *Board) SolveBacktracking() bool {
 	// If the board is initially invalid, it's unsolvable.
 	if !b.IsValid() {
 		return false
 	}
 	return b.backtrack()
+}
+
+// SolveDeductive attempts to solve the Sudoku puzzle using deductive techniques.
+// It mimics human solving strategies (Naked Singles, Hidden Singles, etc.).
+func (b *Board) SolveDeductive() bool {
+	if !b.IsValid() {
+		return false
+	}
+
+	for {
+		changed := false
+
+		// 1. Try Naked Singles
+		if b.applyNakedSingles() {
+			changed = true
+		}
+
+		// 2. Try Hidden Singles
+		if b.applyHiddenSingles() {
+			changed = true
+		}
+
+		if !changed {
+			break // No more progress can be made with current strategies
+		}
+
+		if b.IsSolved() {
+			return true
+		}
+	}
+
+	return b.IsSolved()
+}
+
+// PossibleValues returns a slice of numbers (1-9) that could legally be placed at (row, col).
+func (b *Board) PossibleValues(row, col int) []int {
+	if b[row][col] != 0 {
+		return nil
+	}
+
+	possible := make([]int, 0, 9)
+	for num := 1; num <= 9; num++ {
+		if b.isSafe(row, col, num) {
+			possible = append(possible, num)
+		}
+	}
+	return possible
+}
+
+// applyNakedSingles finds cells that have only one possible candidate.
+func (b *Board) applyNakedSingles() bool {
+	changed := false
+	for r := 0; r < 9; r++ {
+		for c := 0; c < 9; c++ {
+			if b[r][c] == 0 {
+				p := b.PossibleValues(r, c)
+				if len(p) == 1 {
+					b[r][c] = p[0]
+					changed = true
+				}
+			}
+		}
+	}
+	return changed
+}
+
+// applyHiddenSingles finds cells that are the only possible location for a number within a row, column, or box.
+func (b *Board) applyHiddenSingles() bool {
+	changed := false
+
+	// Check rows
+	for r := 0; r < 9; r++ {
+		for num := 1; num <= 9; num++ {
+			count := 0
+			lastCol := -1
+			for c := 0; c < 9; c++ {
+				if b[r][c] == 0 && b.isSafe(r, c, num) {
+					count++
+					lastCol = c
+				}
+			}
+			if count == 1 {
+				b[r][lastCol] = num
+				changed = true
+			}
+		}
+	}
+
+	// Check columns
+	for c := 0; c < 9; c++ {
+		for num := 1; num <= 9; num++ {
+			count := 0
+			lastRow := -1
+			for r := 0; r < 9; r++ {
+				if b[r][c] == 0 && b.isSafe(r, c, num) {
+					count++
+					lastRow = r
+				}
+			}
+			if count == 1 {
+				b[lastRow][c] = num
+				changed = true
+			}
+		}
+	}
+
+	// Check boxes
+	for boxRow := 0; boxRow < 9; boxRow += 3 {
+		for boxCol := 0; boxCol < 9; boxCol += 3 {
+			for num := 1; num <= 9; num++ {
+				count := 0
+				lastR, lastC := -1, -1
+				for r := boxRow; r < boxRow+3; r++ {
+					for c := boxCol; c < boxCol+3; c++ {
+						if b[r][c] == 0 && b.isSafe(r, c, num) {
+							count++
+							lastR, lastC = r, c
+						}
+					}
+				}
+				if count == 1 {
+					b[lastR][lastC] = num
+					changed = true
+				}
+			}
+		}
+	}
+
+	return changed
 }
 
 func (b *Board) backtrack() bool {

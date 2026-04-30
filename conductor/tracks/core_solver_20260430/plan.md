@@ -22,11 +22,13 @@ This plan outlines the steps to build the core Sudoku solver and CLI framework.
 - [x] Task: Implement Sudoku board representation and basic validation [3769ee7]
     - [x] Implement parsing logic
     - [x] Implement rule validation logic
-- [x] Task: Write failing tests for core solving algorithm [1aaee0b]
-    - [x] Create test cases for easy, medium, and hard puzzles
-    - [x] Define expected output for each
-- [x] Task: Implement core solving algorithm [929a73e]
-    - [x] Implement Backtracking or Dancing Links algorithm
+- [x] Task: Implement backtracking algorithm for 'check' command [1550190]
+    - [x] Implement Backtracking algorithm
+    - [x] Ensure it can find a solution (if one exists)
+- [x] Task: Implement deductive solving techniques for 'solve' command [3f8a2d1]
+    - [x] Implement Naked Singles strategy
+    - [x] Implement Hidden Singles strategy
+    - [x] Implement iterative deduction loop
     - [x] Ensure all tests pass
 - [ ] Task: Conductor - User Manual Verification 'Core Solver Implementation' (Protocol in workflow.md)
 
