@@ -15,10 +15,10 @@ This plan outlines the steps to build the core Sudoku solver and CLI framework.
 - [x] Task: Conductor - User Manual Verification 'Project Scaffolding and CLI Structure' (Protocol in workflow.md)
 
 ## Phase 2: Core Solver Implementation (TDD)
-- [ ] Task: Write failing tests for Sudoku board representation and validation
-    - [ ] Define `Board` struct
-    - [ ] Write tests for parsing 81-char strings
-    - [ ] Write tests for basic Sudoku rule validation (rows, cols, boxes)
+- [x] Task: Write failing tests for Sudoku board representation and validation [83c1622]
+    - [x] Define `Board` struct
+    - [x] Write tests for parsing 81-char strings
+    - [x] Write tests for basic Sudoku rule validation (rows, cols, boxes)
 - [ ] Task: Implement Sudoku board representation and basic validation
     - [ ] Implement parsing logic
     - [ ] Implement rule validation logic
