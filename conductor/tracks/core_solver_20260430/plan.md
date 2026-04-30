@@ -10,8 +10,8 @@ This plan outlines the steps to build the core Sudoku solver and CLI framework.
 - [x] Task: Implement 'solve' command skeleton [94bfdbf]
     - [x] Add `solve` subcommand
     - [x] Define flags for input (e.g., `--input` or positional arg)
-- [x] Task: Implement 'validate' command skeleton [1d16010]
-    - [x] Add `validate` subcommand
+- [x] Task: Implement 'check' command skeleton [1d16010]
+    - [x] Add `check` subcommand
 - [ ] Task: Conductor - User Manual Verification 'Project Scaffolding and CLI Structure' (Protocol in workflow.md)
 
 ## Phase 2: Core Solver Implementation (TDD)

@@ -11,7 +11,7 @@ This track focuses on establishing the core functionality of the Sudoku2 applica
 ## Functional Requirements
 - Initialize a Cobra-based CLI.
 - Implement a `solve` command that takes a puzzle input.
-- Implement a `validate` command to check puzzle uniqueness.
+- Implement a `check` command to verify puzzle uniqueness.
 - Implement a high-performance Sudoku solving algorithm (e.g., Backtracking).
 - Support input in 81-character string format.
 - Output the solved board in a clear, formatted grid.

@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 )
 
@@ -13,11 +11,11 @@ var solveCmd = &cobra.Command{
 	Args:  cobra.MaximumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
-			fmt.Println("Please provide a Sudoku puzzle string.")
+			cmd.Println("Please provide a Sudoku puzzle string.")
 			return
 		}
 		puzzle := args[0]
-		fmt.Printf("Attempting to solve puzzle: %s\n", puzzle)
+		cmd.Printf("Attempting to solve puzzle: %s\n", puzzle)
 		// Logic will be added in later tasks
 	},
 }
