@@ -13,7 +13,7 @@ var rootCmd = &cobra.Command{
 	Long: `A fast and reliable Sudoku solver built with Go.
 It supports solving puzzles, validating uniqueness, and providing educational hints.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Welcome to Sudoku2! Use 'sudoku --help' for more information.")
+		cmd.Println("Welcome to Sudoku2! Use 'sudoku --help' for more information.")
 	},
 }
 
