@@ -36,7 +36,7 @@ This plan outlines the steps to build the core Sudoku solver and CLI framework.
 - [x] Task: Integrate solver into 'solve' command with flag handling [0db8e21]
     - [x] Wire the `solve` command to the solver logic
     - [x] Implement pretty-printing for the output grid
-- [x] Task: Implement basic hint system and educational output [4b3c2a1]
+- [x] Task: Implement basic hint system and educational output [bac5a35]
     - [x] Add logic to provide a single move hint
 - [ ] Task: Implement format conversion
     - [ ] Add support for different input/output formats
