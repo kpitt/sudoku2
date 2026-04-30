@@ -129,6 +129,64 @@ func (b *Board) PossibleValues(row, col int) []int {
 }
 
 // applyNakedSingles finds cells that have only one possible candidate.
+// Hint represents a single deductive move and its explanation.
+type Hint struct {
+	Row     int
+	Col     int
+	Value   int
+	Message string
+}
+
+// GetHint identifies a single move that can be made using deductive logic.
+func (b *Board) GetHint() (*Hint, error) {
+	if !b.IsValid() {
+		return nil, fmt.Errorf("the current board is invalid")
+	}
+
+	// 1. Check for Naked Singles
+	for r := 0; r < 9; r++ {
+		for c := 0; c < 9; c++ {
+			if b[r][c] == 0 {
+				p := b.PossibleValues(r, c)
+				if len(p) == 1 {
+					return &Hint{
+						Row:     r,
+						Col:     c,
+						Value:   p[0],
+						Message: fmt.Sprintf("Naked Single: Cell (%d, %d) has only one possible value: %d", r+1, c+1, p[0]),
+					}, nil
+				}
+			}
+		}
+	}
+
+	// 2. Check for Hidden Singles (Rows)
+	for r := 0; r < 9; r++ {
+		for num := 1; num <= 9; num++ {
+			count := 0
+			lastCol := -1
+			for c := 0; c < 9; c++ {
+				if b[r][c] == 0 && b.isSafe(r, c, num) {
+					count++
+					lastCol = c
+				}
+			}
+			if count == 1 {
+				return &Hint{
+					Row:     r,
+					Col:     lastCol,
+					Value:   num,
+					Message: fmt.Sprintf("Hidden Single in Row %d: %d can only go in cell (%d, %d)", r+1, num, r+1, lastCol+1),
+				}, nil
+			}
+		}
+	}
+
+	// (Additional hidden single checks for columns/boxes can be added here)
+
+	return nil, fmt.Errorf("no simple deductive hints found")
+}
+
 func (b *Board) applyNakedSingles() bool {
 	changed := false
 	for r := 0; r < 9; r++ {
