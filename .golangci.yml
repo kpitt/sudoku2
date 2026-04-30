@@ -1,0 +1,120 @@
+version: "2"
+run:
+  concurrency: 4
+  # Timeout for analysis
+  timeout: 5m
+  # Include test files
+  tests: true
+
+issues:
+  max-issues-per-linter: 0  # 0 = unlimited (we want ALL issues)
+  max-same-issues: 50
+
+linters:
+  # Disable all linters by default
+  disable-all: true
+  # Enable only specific linters
+  enable:
+    # correctness
+    - govet            # built-in checker: copylocks, printf formats, struct tags, unreachable code
+    - staticcheck      # extensive static analysis: deprecated APIs, common mistakes, simplifications
+    - unused           # unused variables, functions, types
+    - errcheck         # unchecked error returns and type assertions
+    - errorlint        # correct use of errors.Is/As and %w wrapping (Go 1.13+)
+    - nilerr           # returning nil error when err is non-nil
+    - forcetypeassert  # type assertions without comma-ok check
+    - copyloopvar      # loop variable copy issues (Go 1.22+)
+    - durationcheck    # detect time.Duration * time.Duration bugs
+    - reassign         # package-level variable reassignment
+    # style
+    - gocritic         # opinionated style: unnecessary conversions, range copies, redundant code
+    - revive           # naming conventions, exported types, stuttered package names
+    - wsl_v5           # whitespace and blank line rules for readability
+    - whitespace       # trailing whitespace, unnecessary blank lines
+    - godot            # exported-symbol comments must end with a period
+    - misspell         # common English misspellings in identifiers and comments
+    - dupword          # duplicate words in comments and strings (the the, is is)
+    - predeclared      # shadowing Go built-ins (len, cap, error)
+    - errname          # error type/var naming conventions (ErrFoo, FooError)
+    - asciicheck       # non-ASCII identifiers (prevents homoglyph/trojan source attacks)
+    # complexity
+    - gocyclo          # cyclomatic complexity threshold
+    - nestif           # deeply nested if/else chains
+    - funlen           # function length limits (lines and statements)
+    - dupl             # code duplication detection
+    # performance
+    - perfsprint       # faster alternatives to fmt.Sprintf
+    - unconvert        # unnecessary type conversions
+    - ineffassign      # assignments to variables never read
+    - goconst          # repeated literals that should be constants
+    # security & resources
+    - bidichk          # dangerous bidirectional Unicode sequences (trojan source CVE-2021-42574)
+    - containedctx     # context.Context stored in struct fields instead of passed as parameter
+    - fatcontext       # context.WithValue/WithCancel in loops (unbounded context chain, memory leak)
+    # testing
+    - testifylint      # testify best practices
+    - thelper          # test helpers missing t.Helper()
+    - usetesting       # use t.Setenv/t.TempDir instead of os equivalents in tests
+    # modernization & meta
+    - modernize        # old patterns replaceable with newer Go features
+    - exptostd         # replace golang.org/x/exp/ functions with stdlib equivalents
+    - intrange         # range over integer instead of C-style loop (Go 1.22+)
+    - usestdlibvars    # use stdlib constants instead of hardcoded values
+    - exhaustive       # switch statements not covering all enum values
+    - nolintlint       # enforces proper //nolint directive usage
+
+  disable:
+    - prealloc         # high false-positive rate; enable only after performance profiling
+    - nakedret         # naked returns — overlaps with funlen (short functions make naked returns fine)
+    - gocognit         # cognitive complexity — redundant with gocyclo + nestif
+    - cyclop           # cyclomatic complexity — redundant with gocyclo
+    - goheader         # file header enforcement — project-specific policy
+    - godoclint        # godoc validation — overlaps with godot and revive
+    - recvcheck        # receiver type consistency — overlaps with gocritic
+
+  settings:
+    dupl:
+      threshold: 100  # lower => stricter (tokens)
+    errcheck:
+      check-type-assertions: true
+      exclude-functions:
+        - (*github.com/spf13/cobra.Command).Help
+    funlen:
+      lines: 120
+      statements: 80
+    goconst:
+      min-len: 3
+      min-occurrences: 4
+    gocritic:
+      disabled-checks:
+        - ifElseChain
+    gocyclo:
+      min-complexity: 30 # lenient to start; lower => stricter
+    nolintlint:
+      require-explanation: true
+      require-specific: true
+    revive:
+      enable-default-rules: true
+      rules:
+        - name: empty-block
+          disabled: true
+        - name: package-comments
+          disabled: true
+        - name: unused-parameter
+          # Disabled for now. Too many false-positives for functions that
+          # implement a required signature (interface or field type).
+          disabled: true
+    wsl_v5:
+      allow-first-in-block: true
+      allow-whole-block: true
+      branch-max-lines: 5
+
+formatters:
+  enable:
+    - gofmt
+    - gofumpt
+  settings:
+    gofumpt:
+      extra-rules: true
+  exclusions:
+    generated: lax
