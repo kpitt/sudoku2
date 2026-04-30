@@ -33,7 +33,7 @@ This plan outlines the steps to build the core Sudoku solver and CLI framework.
 - [x] Task: Conductor - User Manual Verification 'Core Solver Implementation' (Protocol in workflow.md)
 
 ## Phase 3: CLI Integration and Hints
-- [x] Task: Integrate solver into 'solve' command with flag handling [1c2b3a4]
+- [x] Task: Integrate solver into 'solve' command with flag handling [0db8e21]
     - [x] Wire the `solve` command to the solver logic
     - [x] Implement pretty-printing for the output grid
 - [ ] Task: Implement basic hint system and educational output
