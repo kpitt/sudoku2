@@ -1,0 +1,4 @@
+[tools]
+go = "1.26.2"
+"go:github.com/psampaz/go-mod-outdated" = "0.9.0"
+golangci-lint = "2.12.0"
