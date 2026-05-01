@@ -44,5 +44,6 @@ This document summarizes key rules and best practices from the official "Effecti
 - **`error` type:** The built-in `error` interface is the standard way to handle errors.
 - **Explicit Error Handling:** Do not discard errors with the blank identifier (`_`). Check for errors explicitly.
 - **`panic`:** Reserved for truly exceptional, unrecoverable situations. Generally, libraries should not panic.
+- Use `errors.New` for static message strings. Only use `fmt.Errorf` when you need dynamic context (field names, values, wrapped error).
 
 *Source: [Effective Go](https://go.dev/doc/effective_go)*
