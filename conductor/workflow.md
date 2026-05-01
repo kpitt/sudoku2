@@ -150,27 +150,45 @@ Before marking any task complete, verify:
 
 ## Development Commands
 
-**AI AGENT INSTRUCTION: This section should be adapted to the project's specific language, framework, and build tools.**
+**AI AGENT INSTRUCTION: Use the following `make` targets for development tasks. These targets are defined in the project's `Makefile`.**
 
 ### Setup
 ```bash
-# Example: Commands to set up the development environment (e.g., install dependencies, configure database)
-# e.g., for a Node.js project: npm install
-# e.g., for a Go project: go mod tidy
+# Install dependencies and tidy go.mod
+make install
 ```
 
 ### Daily Development
 ```bash
-# Example: Commands for common daily tasks (e.g., start dev server, run tests, lint, format)
-# e.g., for a Node.js project: npm run dev, npm test, npm run lint
-# e.g., for a Go project: go run main.go, go test ./..., go fmt ./...
+# Build and run the application
+go run ./cmd/sudoku
+
+# Build the application binary (`bin/sudoku`)
+make build
+
+# Run all unit tests with coverage and race detection
+make test
+
+# Run only short tests
+make test-short
+
+# Run benchmark tests
+make benchmark
+
+# Run the linter (golangci-lint)
+make lint
+
+# Format code and run go vet
+make fmt
 ```
 
 ### Before Committing
 ```bash
-# Example: Commands to run all pre-commit checks (e.g., format, lint, type check, run tests)
-# e.g., for a Node.js project: npm run check
-# e.g., for a Go project: make check (if a Makefile exists)
+# CRITICAL: Always format your code before committing
+make fmt
+
+# Run the full quality suite (clean, lint, test, build)
+make all
 ```
 
 ## Testing Requirements
@@ -182,17 +200,7 @@ Before marking any task complete, verify:
 - Test both success and failure cases.
 
 ### Integration Testing
-- Test complete user flows
-- Verify database transactions
-- Test authentication and authorization
-- Check form submissions
-
-### Mobile Testing
-- Test on actual iPhone when possible
-- Use Safari developer tools
-- Test touch interactions
-- Verify responsive layouts
-- Check performance on 3G/4G
+- Test complete user flows for the CLI interface
 
 ## Code Review Process
 
@@ -216,21 +224,11 @@ Before requesting review:
    - Coverage adequate (>80%)
 
 4. **Security**
-   - No hardcoded secrets
    - Input validation present
-   - SQL injection prevented
-   - XSS protection in place
 
 5. **Performance**
-   - Database queries optimized
-   - Images optimized
+   - Allocations minimized, especially in hot loops
    - Caching implemented where needed
-
-6. **Mobile Experience**
-   - Touch targets adequate (44x44px)
-   - Text readable without zooming
-   - Performance acceptable on mobile
-   - Interactions feel native
 
 ## Commit Guidelines
 
@@ -273,56 +271,6 @@ A task is complete when:
 7. Implementation notes added to `plan.md`
 8. Changes committed with proper message
 9. Git note with task summary attached to the commit
-
-## Emergency Procedures
-
-### Critical Bug in Production
-1. Create hotfix branch from main
-2. Write failing test for bug
-3. Implement minimal fix
-4. Test thoroughly including mobile
-5. Deploy immediately
-6. Document in plan.md
-
-### Data Loss
-1. Stop all write operations
-2. Restore from latest backup
-3. Verify data integrity
-4. Document incident
-5. Update backup procedures
-
-### Security Breach
-1. Rotate all secrets immediately
-2. Review access logs
-3. Patch vulnerability
-4. Notify affected users (if any)
-5. Document and update security procedures
-
-## Deployment Workflow
-
-### Pre-Deployment Checklist
-- [ ] All tests passing
-- [ ] Coverage >80%
-- [ ] No linting errors
-- [ ] Mobile testing complete
-- [ ] Environment variables configured
-- [ ] Database migrations ready
-- [ ] Backup created
-
-### Deployment Steps
-1. Merge feature branch to main
-2. Tag release with version
-3. Push to deployment service
-4. Run database migrations
-5. Verify deployment
-6. Test critical paths
-7. Monitor for errors
-
-### Post-Deployment
-1. Monitor analytics
-2. Check error logs
-3. Gather user feedback
-4. Plan next iteration
 
 ## Continuous Improvement
 
