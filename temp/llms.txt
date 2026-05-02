@@ -1,0 +1,59 @@
+# Sudoku2
+
+A high-performance deductive Sudoku puzzle solver written in Go.
+
+## Project Overview
+
+Sudoku2 is designed to solve Sudoku puzzles using human-like deductive techniques rather than brute-force backtracking (though it uses backtracking for solution counting and verification). It supports various input and output formats and provides detailed step-by-step solving logs.
+
+## CLI Usage
+
+### Solve a puzzle
+```bash
+sudoku solve "003020600900305001001806400008102900700000008006708200002609500800203009005010300"
+```
+Or via stdin:
+```bash
+cat puzzle.txt | sudoku solve
+```
+
+### Check for unique solution
+```bash
+sudoku check "..."
+```
+
+### Print in different formats
+```bash
+sudoku print --format sdk "..."
+```
+
+## Supported Formats
+
+- **81**: 81 characters (0 or . for empty).
+- **SDK**: 9x9 grid of digits and dots.
+- **SS**: Simple Sudoku format with box separators.
+- **Candidates**: Sudopedia-style candidate grid showing remaining possibilities for each cell.
+
+## Notation Summary (Sudopedia)
+
+- **Cell Reference**: `r1c1` (row 1, column 1) to `r9c9`.
+- **Multiple Cells**: `r12c1` (r1c1 and r2c1), `r1c12` (r1c1 and r1c2).
+- **Placement**: `r1c1=5` (digit 5 is placed in r1c1).
+- **Elimination**: `r1c1<>5` (digit 5 is eliminated from r1c1).
+
+## Core Architectural Components
+
+- `internal/model`: Core data structures (`Board`, `Cell`) and notation parsing.
+- `internal/io`: Parser and formatters for various Sudoku formats.
+- `internal/solver`: Solving engine and technique interfaces.
+- `internal/solver/techniques`: Implementation of specific solving techniques (Naked/Hidden Subsets, Intersections, Wings, etc.).
+
+## Solving Techniques
+
+- **Basic Pruning**: Initial elimination of candidates based on fixed values.
+- **Naked Single**: Cell with only one possible candidate.
+- **Hidden Single**: Digit that can only go in one cell within a house (row, column, or box).
+- **Intersections**: Pointing and Claiming (Locked Candidates).
+- **Naked Subsets**: Pairs, Triples, Quads.
+- **Hidden Subsets**: Pairs, Triples, Quads.
+- **X-Wing**: Basic fish technique.
