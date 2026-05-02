@@ -85,6 +85,7 @@ linters:
     goconst:
       min-len: 3
       min-occurrences: 4
+      ignore-tests: true
     gocritic:
       disabled-checks:
         - ifElseChain
@@ -107,6 +108,7 @@ linters:
     wsl_v5:
       allow-first-in-block: true
       allow-whole-block: true
+      cuddle-max-statements: 2
       branch-max-lines: 5
 
 formatters:
