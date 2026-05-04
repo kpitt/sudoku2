@@ -60,16 +60,16 @@ func TestBoard_Getters(t *testing.T) {
 		{9, 7, 8, 3, 1, 2, 6, 4, 5},
 	}
 
-	t.Run("GetRow", func(t *testing.T) {
-		assert.Equal(t, []int{1, 2, 3, 4, 5, 6, 7, 8, 9}, board.GetRow(0))
+	t.Run("Row", func(t *testing.T) {
+		assert.Equal(t, []int{1, 2, 3, 4, 5, 6, 7, 8, 9}, board.Row(0))
 	})
 
-	t.Run("GetCol", func(t *testing.T) {
-		assert.Equal(t, []int{1, 4, 7, 2, 5, 8, 3, 6, 9}, board.GetCol(0))
+	t.Run("Col", func(t *testing.T) {
+		assert.Equal(t, []int{1, 4, 7, 2, 5, 8, 3, 6, 9}, board.Col(0))
 	})
 
-	t.Run("GetBox", func(t *testing.T) {
-		assert.Equal(t, []int{1, 2, 3, 4, 5, 6, 7, 8, 9}, board.GetBox(0, 0))
+	t.Run("Box", func(t *testing.T) {
+		assert.Equal(t, []int{1, 2, 3, 4, 5, 6, 7, 8, 9}, board.Box(0, 0))
 	})
 }
 

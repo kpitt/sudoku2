@@ -8,14 +8,14 @@ type Board [9][9]int
 func (b *Board) IsValid() bool {
 	// Check rows
 	for r := range 9 {
-		if hasDuplicates(b.GetRow(r)) {
+		if hasDuplicates(b.Row(r)) {
 			return false
 		}
 	}
 
 	// Check columns
 	for c := range 9 {
-		if hasDuplicates(b.GetCol(c)) {
+		if hasDuplicates(b.Col(c)) {
 			return false
 		}
 	}
@@ -23,7 +23,7 @@ func (b *Board) IsValid() bool {
 	// Check 3x3 boxes
 	for r := 0; r < 9; r += 3 {
 		for c := 0; c < 9; c += 3 {
-			if hasDuplicates(b.GetBox(r, c)) {
+			if hasDuplicates(b.Box(r, c)) {
 				return false
 			}
 		}
@@ -32,13 +32,13 @@ func (b *Board) IsValid() bool {
 	return true
 }
 
-// GetRow returns all values in the specified row.
-func (b *Board) GetRow(r int) []int {
+// Row returns all values in the specified row.
+func (b *Board) Row(r int) []int {
 	return b[r][:]
 }
 
-// GetCol returns all values in the specified column.
-func (b *Board) GetCol(c int) []int {
+// Col returns all values in the specified column.
+func (b *Board) Col(c int) []int {
 	col := make([]int, 9)
 	for r := range 9 {
 		col[r] = b[r][c]
@@ -46,8 +46,8 @@ func (b *Board) GetCol(c int) []int {
 	return col
 }
 
-// GetBox returns all values in the 3x3 box starting at the specified row and column.
-func (b *Board) GetBox(startRow, startCol int) []int {
+// Box returns all values in the 3x3 box starting at the specified row and column.
+func (b *Board) Box(startRow, startCol int) []int {
 	box := make([]int, 0, 9)
 	for r := startRow; r < startRow+3; r++ {
 		for c := startCol; c < startCol+3; c++ {
