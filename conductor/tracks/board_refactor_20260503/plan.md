@@ -1,0 +1,24 @@
+# Implementation Plan: Refactor Board Separation of Concerns
+
+## Phase 1: Core Board State Package
+- [ ] Task: Create `internal/board` package
+    - [ ] Create `internal/board/board.go` for the core grid structure, getters, and setters.
+    - [ ] Create `internal/board/board_test.go` with unit tests for state access and validation.
+- [ ] Task: Conductor - User Manual Verification 'Phase 1: Core Board State Package' (Protocol in workflow.md)
+
+## Phase 2: IO Package (Parsing and Formatting)
+- [ ] Task: Create `internal/io` package
+    - [ ] Create `internal/io/parse.go` extracting parsing logic from the old board.
+    - [ ] Create `internal/io/parse_test.go` with unit tests for parsing strings.
+    - [ ] Create `internal/io/format.go` with formatting logic (to string) from the old board.
+    - [ ] Create `internal/io/format_test.go` with unit tests for formatting.
+- [ ] Task: Conductor - User Manual Verification 'Phase 2: IO Package (Parsing and Formatting)' (Protocol in workflow.md)
+
+## Phase 3: Update Solver and CLI
+- [ ] Task: Update `internal/solver` to use new packages
+    - [ ] Refactor `internal/solver/solver.go` to depend on `internal/board`.
+    - [ ] Update `internal/solver/solver_test.go`.
+    - [ ] Remove `internal/solver/board.go` and `internal/solver/board_test.go`.
+- [ ] Task: Update `internal/cmd` CLI commands
+    - [ ] Update `check.go`, `convert.go`, `hint.go`, `solve.go` and their tests to use `internal/board` and `internal/io`.
+- [ ] Task: Conductor - User Manual Verification 'Phase 3: Update Solver and CLI' (Protocol in workflow.md)
