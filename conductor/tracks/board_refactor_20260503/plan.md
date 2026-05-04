@@ -15,10 +15,10 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: IO Package (Parsing and Formatting)' (Protocol in workflow.md) e417053
 
 ## Phase 3: Update Solver and CLI
-- [ ] Task: Update `internal/solver` to use new packages
+- [x] Task: Update `internal/solver` to use new packages 986359c
     - [ ] Refactor `internal/solver/solver.go` to depend on `internal/board`.
     - [ ] Update `internal/solver/solver_test.go`.
     - [ ] Remove `internal/solver/board.go` and `internal/solver/board_test.go`.
-- [ ] Task: Update `internal/cmd` CLI commands
+- [x] Task: Update `internal/cmd` CLI commands 986359c
     - [ ] Update `check.go`, `convert.go`, `hint.go`, `solve.go` and their tests to use `internal/board` and `internal/io`.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Update Solver and CLI' (Protocol in workflow.md)
