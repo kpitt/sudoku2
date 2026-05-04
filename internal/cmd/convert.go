@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/kpitt/sudoku2/internal/solver"
+	"github.com/kpitt/sudoku2/internal/io"
 	"github.com/spf13/cobra"
 )
 
@@ -15,7 +15,7 @@ var convertCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		puzzle := args[0]
 
-		board, err := solver.ParseBoard(puzzle)
+		board, err := io.ParseBoard(puzzle)
 		if err != nil {
 			cmd.Printf("Error: %v\n", err)
 			return
@@ -23,9 +23,9 @@ var convertCmd = &cobra.Command{
 
 		switch format {
 		case "pretty":
-			cmd.Println(board.String())
+			cmd.Println(io.FormatPretty(&board))
 		case "raw":
-			cmd.Println(board.RawString())
+			cmd.Println(io.FormatRaw(&board))
 		default:
 			cmd.Printf("Unknown format: %s. Use 'pretty' or 'raw'.\n", format)
 		}

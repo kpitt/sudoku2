@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/kpitt/sudoku2/internal/io"
 	"github.com/kpitt/sudoku2/internal/solver"
 	"github.com/spf13/cobra"
 )
@@ -13,13 +14,13 @@ var hintCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		puzzle := args[0]
 
-		board, err := solver.ParseBoard(puzzle)
+		board, err := io.ParseBoard(puzzle)
 		if err != nil {
 			cmd.Printf("Error: %v\n", err)
 			return
 		}
 
-		hint, err := board.GetHint()
+		hint, err := solver.GetHint(&board)
 		if err != nil {
 			cmd.Printf("Hint Error: %v\n", err)
 			return

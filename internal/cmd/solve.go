@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/kpitt/sudoku2/internal/io"
 	"github.com/kpitt/sudoku2/internal/solver"
 	"github.com/spf13/cobra"
 )
@@ -13,22 +14,22 @@ var solveCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		puzzle := args[0]
 
-		board, err := solver.ParseBoard(puzzle)
+		board, err := io.ParseBoard(puzzle)
 		if err != nil {
 			cmd.Printf("Error: %v\n", err)
 			return
 		}
 
 		cmd.Println("Initial Puzzle:")
-		cmd.Println(board.String())
+		cmd.Println(io.FormatPretty(&board))
 
-		if board.SolveDeductive() {
+		if solver.SolveDeductive(&board) {
 			cmd.Println("Solved Puzzle (using deductive logic):")
-			cmd.Println(board.String())
+			cmd.Println(io.FormatPretty(&board))
 		} else {
 			cmd.Println("Could not solve the puzzle using purely deductive techniques.")
 			cmd.Println("Partial Solution:")
-			cmd.Println(board.String())
+			cmd.Println(io.FormatPretty(&board))
 		}
 	},
 }

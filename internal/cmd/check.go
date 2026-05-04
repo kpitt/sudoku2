@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/kpitt/sudoku2/internal/io"
 	"github.com/kpitt/sudoku2/internal/solver"
 	"github.com/spf13/cobra"
 )
@@ -13,7 +14,7 @@ var checkCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		puzzle := args[0]
 
-		board, err := solver.ParseBoard(puzzle)
+		board, err := io.ParseBoard(puzzle)
 		if err != nil {
 			cmd.Printf("Error: %v\n", err)
 			return
@@ -24,7 +25,7 @@ var checkCmd = &cobra.Command{
 			return
 		}
 
-		if board.SolveBacktracking() {
+		if solver.SolveBacktracking(&board) {
 			cmd.Println("The puzzle is valid and solvable.")
 			// In the future, we can add logic to check for multiple solutions.
 		} else {
