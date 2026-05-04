@@ -5,7 +5,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 ---
 
 - [x] **Track: Implement core Sudoku solving algorithm and CLI structure using Cobra**
-  *Link: [./tracks/core_solver_20260430/](./tracks/core_solver_20260430/)*
+  *Link: [./archive/core_solver_20260430/](./archive/core_solver_20260430/)*
 
 ---
 
