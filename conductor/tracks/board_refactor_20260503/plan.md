@@ -7,7 +7,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Core Board State Package' (Protocol in workflow.md) 90acff9
 
 ## Phase 2: IO Package (Parsing and Formatting)
-- [ ] Task: Create `internal/io` package
+- [x] Task: Create `internal/io` package 12c6adc
     - [ ] Create `internal/io/parse.go` extracting parsing logic from the old board.
     - [ ] Create `internal/io/parse_test.go` with unit tests for parsing strings.
     - [ ] Create `internal/io/format.go` with formatting logic (to string) from the old board.
