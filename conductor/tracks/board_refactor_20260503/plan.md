@@ -22,3 +22,6 @@
 - [x] Task: Update `internal/cmd` CLI commands 986359c
     - [ ] Update `check.go`, `convert.go`, `hint.go`, `solve.go` and their tests to use `internal/board` and `internal/io`.
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Update Solver and CLI' (Protocol in workflow.md) 6781929
+
+## Phase: Review Fixes
+- [x] Task: Apply review suggestions 5a05971
