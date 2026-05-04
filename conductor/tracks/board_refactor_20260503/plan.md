@@ -1,10 +1,10 @@
 # Implementation Plan: Refactor Board Separation of Concerns
 
-## Phase 1: Core Board State Package
+## Phase 1: Core Board State Package [checkpoint: 90acff9]
 - [x] Task: Create `internal/board` package b084830
     - [ ] Create `internal/board/board.go` for the core grid structure, getters, and setters.
     - [ ] Create `internal/board/board_test.go` with unit tests for state access and validation.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Core Board State Package' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Core Board State Package' (Protocol in workflow.md) 90acff9
 
 ## Phase 2: IO Package (Parsing and Formatting)
 - [ ] Task: Create `internal/io` package
