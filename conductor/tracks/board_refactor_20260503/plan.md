@@ -6,13 +6,13 @@
     - [ ] Create `internal/board/board_test.go` with unit tests for state access and validation.
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Core Board State Package' (Protocol in workflow.md) 90acff9
 
-## Phase 2: IO Package (Parsing and Formatting)
+## Phase 2: IO Package (Parsing and Formatting) [checkpoint: e417053]
 - [x] Task: Create `internal/io` package 12c6adc
     - [ ] Create `internal/io/parse.go` extracting parsing logic from the old board.
     - [ ] Create `internal/io/parse_test.go` with unit tests for parsing strings.
     - [ ] Create `internal/io/format.go` with formatting logic (to string) from the old board.
     - [ ] Create `internal/io/format_test.go` with unit tests for formatting.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: IO Package (Parsing and Formatting)' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: IO Package (Parsing and Formatting)' (Protocol in workflow.md) e417053
 
 ## Phase 3: Update Solver and CLI
 - [ ] Task: Update `internal/solver` to use new packages
