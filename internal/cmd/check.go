@@ -12,6 +12,7 @@ var checkCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		puzzle := args[0]
+
 		board, err := solver.ParseBoard(puzzle)
 		if err != nil {
 			cmd.Printf("Error: %v\n", err)

@@ -1,8 +1,10 @@
 package solver
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 // Board represents a 9x9 Sudoku board.
@@ -19,6 +21,7 @@ func ParseBoard(input string) (Board, error) {
 		if char < '0' || char > '9' {
 			return Board{}, fmt.Errorf("invalid character at index %d: %c", i, char)
 		}
+
 		val, _ := strconv.Atoi(string(char))
 		board[i/9][i%9] = val
 	}
@@ -30,14 +33,14 @@ func ParseBoard(input string) (Board, error) {
 // It returns true if no rules are violated. Empty cells (0) are ignored.
 func (b *Board) IsValid() bool {
 	// Check rows
-	for r := 0; r < 9; r++ {
+	for r := range 9 {
 		if hasDuplicates(b.getRow(r)) {
 			return false
 		}
 	}
 
 	// Check columns
-	for c := 0; c < 9; c++ {
+	for c := range 9 {
 		if hasDuplicates(b.getCol(c)) {
 			return false
 		}
@@ -60,13 +63,15 @@ func (b *Board) IsSolved() bool {
 	if !b.IsValid() {
 		return false
 	}
-	for r := 0; r < 9; r++ {
-		for c := 0; c < 9; c++ {
+
+	for r := range 9 {
+		for c := range 9 {
 			if b[r][c] == 0 {
 				return false
 			}
 		}
 	}
+
 	return true
 }
 
@@ -125,10 +130,10 @@ func (b *Board) PossibleValues(row, col int) []int {
 			possible = append(possible, num)
 		}
 	}
+
 	return possible
 }
 
-// applyNakedSingles finds cells that have only one possible candidate.
 // Hint represents a single deductive move and its explanation.
 type Hint struct {
 	Row     int
@@ -140,12 +145,12 @@ type Hint struct {
 // GetHint identifies a single move that can be made using deductive logic.
 func (b *Board) GetHint() (*Hint, error) {
 	if !b.IsValid() {
-		return nil, fmt.Errorf("the current board is invalid")
+		return nil, errors.New("the current board is invalid")
 	}
 
 	// 1. Check for Naked Singles
-	for r := 0; r < 9; r++ {
-		for c := 0; c < 9; c++ {
+	for r := range 9 {
+		for c := range 9 {
 			if b[r][c] == 0 {
 				p := b.PossibleValues(r, c)
 				if len(p) == 1 {
@@ -161,16 +166,17 @@ func (b *Board) GetHint() (*Hint, error) {
 	}
 
 	// 2. Check for Hidden Singles (Rows)
-	for r := 0; r < 9; r++ {
+	for r := range 9 {
 		for num := 1; num <= 9; num++ {
 			count := 0
 			lastCol := -1
-			for c := 0; c < 9; c++ {
+			for c := range 9 {
 				if b[r][c] == 0 && b.isSafe(r, c, num) {
 					count++
 					lastCol = c
 				}
 			}
+
 			if count == 1 {
 				return &Hint{
 					Row:     r,
@@ -184,13 +190,14 @@ func (b *Board) GetHint() (*Hint, error) {
 
 	// (Additional hidden single checks for columns/boxes can be added here)
 
-	return nil, fmt.Errorf("no simple deductive hints found")
+	return nil, errors.New("no simple deductive hints found")
 }
 
+// applyNakedSingles finds cells that have only one possible candidate.
 func (b *Board) applyNakedSingles() bool {
 	changed := false
-	for r := 0; r < 9; r++ {
-		for c := 0; c < 9; c++ {
+	for r := range 9 {
+		for c := range 9 {
 			if b[r][c] == 0 {
 				p := b.PossibleValues(r, c)
 				if len(p) == 1 {
@@ -200,6 +207,7 @@ func (b *Board) applyNakedSingles() bool {
 			}
 		}
 	}
+
 	return changed
 }
 
@@ -208,16 +216,17 @@ func (b *Board) applyHiddenSingles() bool {
 	changed := false
 
 	// Check rows
-	for r := 0; r < 9; r++ {
+	for r := range 9 {
 		for num := 1; num <= 9; num++ {
 			count := 0
 			lastCol := -1
-			for c := 0; c < 9; c++ {
+			for c := range 9 {
 				if b[r][c] == 0 && b.isSafe(r, c, num) {
 					count++
 					lastCol = c
 				}
 			}
+
 			if count == 1 {
 				b[r][lastCol] = num
 				changed = true
@@ -226,16 +235,17 @@ func (b *Board) applyHiddenSingles() bool {
 	}
 
 	// Check columns
-	for c := 0; c < 9; c++ {
+	for c := range 9 {
 		for num := 1; num <= 9; num++ {
 			count := 0
 			lastRow := -1
-			for r := 0; r < 9; r++ {
+			for r := range 9 {
 				if b[r][c] == 0 && b.isSafe(r, c, num) {
 					count++
 					lastRow = r
 				}
 			}
+
 			if count == 1 {
 				b[lastRow][c] = num
 				changed = true
@@ -257,6 +267,7 @@ func (b *Board) applyHiddenSingles() bool {
 						}
 					}
 				}
+
 				if count == 1 {
 					b[lastR][lastC] = num
 					changed = true
@@ -280,6 +291,7 @@ func (b *Board) backtrack() bool {
 			if b.backtrack() {
 				return true
 			}
+
 			b[row][col] = 0 // Backtrack
 		}
 	}
@@ -288,26 +300,27 @@ func (b *Board) backtrack() bool {
 }
 
 func (b *Board) findEmptyCell() (int, int, bool) {
-	for r := 0; r < 9; r++ {
-		for c := 0; c < 9; c++ {
+	for r := range 9 {
+		for c := range 9 {
 			if b[r][c] == 0 {
 				return r, c, true
 			}
 		}
 	}
+
 	return 0, 0, false
 }
 
 func (b *Board) isSafe(row, col, num int) bool {
 	// Check row
-	for c := 0; c < 9; c++ {
+	for c := range 9 {
 		if b[row][c] == num {
 			return false
 		}
 	}
 
 	// Check column
-	for r := 0; r < 9; r++ {
+	for r := range 9 {
 		if b[r][col] == num {
 			return false
 		}
@@ -332,7 +345,7 @@ func (b *Board) getRow(r int) []int {
 
 func (b *Board) getCol(c int) []int {
 	col := make([]int, 9)
-	for r := 0; r < 9; r++ {
+	for r := range 9 {
 		col[r] = b[r][c]
 	}
 	return col
@@ -345,6 +358,7 @@ func (b *Board) getBox(startRow, startCol int) []int {
 			box = append(box, b[r][c])
 		}
 	}
+
 	return box
 }
 
@@ -354,43 +368,51 @@ func hasDuplicates(nums []int) bool {
 		if n == 0 {
 			continue
 		}
+
 		if seen[n] {
 			return true
 		}
+
 		seen[n] = true
 	}
+
 	return false
 }
 
 // RawString returns the board as a simple 81-character string.
 func (b *Board) RawString() string {
-	var out string
-	for r := 0; r < 9; r++ {
-		for c := 0; c < 9; c++ {
-			out += strconv.Itoa(b[r][c])
+	var out strings.Builder
+	for r := range 9 {
+		for c := range 9 {
+			out.WriteString(strconv.Itoa(b[r][c]))
 		}
 	}
-	return out
+
+	return out.String()
 }
 
 // String returns a human-readable representation of the board.
 func (b *Board) String() string {
-	var out string
-	for r := 0; r < 9; r++ {
+	var out strings.Builder
+	for r := range 9 {
 		if r > 0 && r%3 == 0 {
-			out += "------+-------+------\n"
+			out.WriteString("------+-------+------\n")
 		}
-		for c := 0; c < 9; c++ {
+
+		for c := range 9 {
 			if c > 0 && c%3 == 0 {
-				out += "| "
+				out.WriteString("| ")
 			}
+
 			if b[r][c] == 0 {
-				out += ". "
+				out.WriteString(". ")
 			} else {
-				out += fmt.Sprintf("%d ", b[r][c])
+				fmt.Fprintf(&out, "%d ", b[r][c])
 			}
 		}
-		out += "\n"
+
+		out.WriteString("\n")
 	}
-	return out
+
+	return out.String()
 }

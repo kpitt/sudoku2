@@ -4,13 +4,14 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestParseBoard(t *testing.T) {
 	t.Run("valid 81-char string", func(t *testing.T) {
 		input := "003020600900305001001806400008102900700000008006708200002609500800203009005010300"
 		board, err := ParseBoard(input)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, 3, board[0][2])
 		assert.Equal(t, 9, board[1][0])
 	})
@@ -77,7 +78,7 @@ func TestBoard_GetHint(t *testing.T) {
 		input := "003020600900305001001806400008102900700000008006708200002609500800203009005010300"
 		board, _ := ParseBoard(input)
 		hint, err := board.GetHint()
-		assert.NoError(t, err)
+		require.NoError(t, err)
 		assert.Contains(t, hint.Message, "Naked Single")
 	})
 

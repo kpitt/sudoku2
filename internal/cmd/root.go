@@ -17,6 +17,8 @@ It supports solving puzzles, validating uniqueness, and providing educational hi
 	},
 }
 
+// Execute runs the root command of the CLI, which is responsible for parsing
+// the command line and determining the correct subcommand to execute.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)

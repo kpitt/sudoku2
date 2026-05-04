@@ -4,13 +4,14 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestBoard_SolveBacktracking(t *testing.T) {
 	t.Run("easy puzzle", func(t *testing.T) {
 		input := "530070000600195000098000060800060003400803001700020006060000280000419005000080079"
 		board, err := ParseBoard(input)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 
 		solved := board.SolveBacktracking()
 		assert.True(t, solved)
@@ -36,7 +37,7 @@ func TestBoard_SolveDeductive(t *testing.T) {
 		// A puzzle that can be solved by naked singles alone (or mostly)
 		input := "003020600900305001001806400008102900700000008006708200002609500800203009005010300"
 		board, err := ParseBoard(input)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 
 		solved := board.SolveDeductive()
 		assert.True(t, solved)
