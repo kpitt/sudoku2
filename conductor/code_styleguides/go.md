@@ -16,7 +16,9 @@ This document summarizes key rules and best practices from the official "Effecti
 
 ## 3. Control Structures
 - **`if`:** No parentheses around the condition. Braces are mandatory. Can include an initialization statement (e.g., `if err := file.Chmod(0664); err != nil`).
-- **`for`:** Go's only looping construct. Unifies `for` and `while`. Use `for...range` to iterate over slices, maps, strings, and channels.
+- **`for`:** Go's only looping construct. Unifies `for` and `while`.
+    - Use `for i := range N` for simple counting loops (Go 1.22+).
+    - Use `for...range` to iterate over slices, maps, strings, and channels.
 - **`switch`:** More general than in C. Cases do not fall through by default (use `fallthrough` explicitly). Can be used without an expression to function as a cleaner `if-else-if` chain.
 
 ## 4. Functions

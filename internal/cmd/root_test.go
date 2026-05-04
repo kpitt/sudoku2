@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestRootCommand(t *testing.T) {
@@ -15,7 +16,7 @@ func TestRootCommand(t *testing.T) {
 
 		err := rootCmd.Execute()
 
-		assert.NoError(t, err)
+		require.NoError(t, err)
 		assert.Contains(t, output.String(), "A fast and reliable Sudoku solver built with Go")
 	})
 
@@ -26,9 +27,10 @@ func TestRootCommand(t *testing.T) {
 
 		err := rootCmd.Execute()
 
-		assert.NoError(t, err)
+		require.NoError(t, err)
+
 		outStr := output.String()
-		assert.True(t, len(outStr) > 0)
+		assert.NotEmpty(t, outStr)
 	})
 
 	t.Run("Execute function", func(t *testing.T) {
