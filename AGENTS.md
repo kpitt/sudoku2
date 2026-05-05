@@ -1,6 +1,7 @@
 # Agent Instructions
 
 ## Core Principles
+- **Source of Truth**: The `docs/REQUIREMENTS.md` file is the foundational source of truth for all high-level product requirements and functional specifications. All implementation must strictly adhere to its definitions.
 - Follow standard Go project layout (`/cmd`, `/pkg`, `/internal`).
 - Write idiomatic Go: simple, clear, and efficient.
 - Use `spf13/cobra` for command structure.
