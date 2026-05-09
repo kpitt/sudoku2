@@ -13,14 +13,22 @@
 *   **Risks/Unknowns:** Correctly managing the bitwise logic for subset duals (Pairs) without heap allocations. Ensuring strict adherence to `go build -gcflags="-m"` zero-allocation constraints.
 
 ## 2. 📋 Checklist
-- [ ] Step 1: Initialize CLI Structure
-- [ ] Step 2: Implement Core Board State & LUTs
-- [ ] Step 3: Implement Basic Parser
-- [ ] Step 4: Implement `ss` Formatter
-- [ ] Step 5: Implement Naked & Hidden Singles
-- [ ] Step 6: Implement Naked & Hidden Pairs
-- [ ] Step 7: Implement Solver Priority Loop & CLI Integration
-- [ ] Verification
+- [x] Step 1: Initialize CLI Structure
+    Status: ✅ Implemented in cmd/sudoku/
+- [x] Step 2: Implement Core Board State & LUTs
+    Status: ✅ Implemented in internal/solver/
+- [x] Step 3: Implement Basic Parser
+    Status: ✅ Implemented in internal/parser/
+- [x] Step 4: Implement `ss` Formatter
+    Status: ✅ Implemented in internal/formatter/
+- [x] Step 5: Implement Naked & Hidden Singles
+    Status: ✅ Implemented in internal/solver/singles.go
+- [x] Step 6: Implement Naked & Hidden Pairs
+    Status: ✅ Implemented in internal/solver/subsets.go
+- [x] Step 7: Implement Solver Priority Loop & CLI Integration
+    Status: ✅ Implemented in internal/solver/loop.go and cmd/sudoku/solve.go
+- [x] Verification
+    Status: ✅ All tests passed, zero allocations verified, lint clean.
 
 ## 3. 📝 Step-by-Step Implementation Details
 
