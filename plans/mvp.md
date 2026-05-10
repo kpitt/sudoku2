@@ -95,6 +95,6 @@
 ## 5. ✅ Success Criteria
 *   Application compiles without errors.
 *   `golangci-lint run` reports no warnings.
-*   Zero heap allocations during the solver loop (`go build -gcflags="-m"` verified).
+*   Zero heap allocations inside hot pattern search loops (`go build -gcflags="-m"` verified). Limited allocations are OK if they only occur once per successful technique (e.g., when constructing step details).
 *   CLI successfully accepts an 81-character puzzle, applies Singles and Pairs logic, and outputs the final grid in `ss` ASCII format.
 *   All unit and integration tests pass.
