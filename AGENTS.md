@@ -98,6 +98,11 @@ func BenchmarkFoo(b *testing.B) {
 - Run `go mod tidy` after modifying dependencies
 - Pin versions for reproducible builds
 
+### Source Control & Git
+- **Regular Checkpoints**: The agent must commit regular checkpoints to `git` during implementation.
+- **Commit Messages**: Commit messages must be clear and concise, and should follow accepted best practices for commit message formatting.
+- **DO NOT** use the "semantic commit" pattern (e.g., do not use prefixes like `feat:`, `fix:`, `chore:`).
+
 ### Error Handling
 - **Explicitly check all errors** - never ignore with `_`
 - Wrap errors with context: `fmt.Errorf("operation failed: %w", err)`

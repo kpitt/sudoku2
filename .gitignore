@@ -1,4 +1,4 @@
 /bin/
 
-/coverage*.out
-/coverage*.html
+/cover*.out
+/cover*.html
