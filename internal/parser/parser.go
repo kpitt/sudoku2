@@ -57,7 +57,6 @@ func Parse(input string) (*solver.Board, error) {
 
 		// Set the cell to the solved value
 		b.Cells[i] = mask
-		b.Resolved++
 
 		// Update states
 		rowIdx := solver.RowLUT[i]
@@ -71,29 +70,11 @@ func Parse(input string) (*solver.Board, error) {
 		// Propagate: remove this candidate from all peers
 		for _, peerIdx := range solver.PeersLUT[i] {
 			b.Cells[peerIdx] &^= mask
-			// Note: We don't increment b.Resolved here if a peer becomes solved
-			// to avoid complex recursive propagation during parsing.
-			// The solver loop will handle cells that were solved by propagation.
 		}
 	}
 
-	// Re-calculate Resolved count just in case propagation solved more cells
-	// but the solver loop should really be the one doing that.
-	// Actually, let's keep Resolved count strictly to what we explicitly set.
-	// Wait, it's better if Resolved count is accurate.
-	// I'll do a quick pass to count solved cells.
-	count := uint8(0)
-
-	for i := range 81 {
-		// Use bits.OnesCount16 if I had it here, but I can just check
-		// if (c & (c-1)) == 0 && c != 0
-		c := b.Cells[i]
-		if c != 0 && (c&(c-1)) == 0 {
-			count++
-		}
-	}
-
-	b.Resolved = count
+	// Sync Resolved count after all placements and propagations
+	b.SyncResolved()
 
 	return b, nil
 }

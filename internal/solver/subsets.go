@@ -38,14 +38,7 @@ func FindNakedPairs(b *Board) (Step, bool) {
 					}
 
 					if s.TargetLen > 0 {
-						tempMask := mask1
-						for tempMask != 0 {
-							digit := bits.TrailingZeros16(tempMask) + 1
-							s.Values[s.ValuesLen] = digit
-							s.ValuesLen++
-							tempMask &^= (1 << (digit - 1))
-						}
-
+						s.AddValuesFromMask(mask1)
 						return s, true
 					}
 				}
@@ -106,13 +99,7 @@ func FindHiddenPairs(b *Board) (Step, bool) {
 							removedMask |= (b.Cells[t] &^ pairMask)
 						}
 
-						tempRemove := removedMask
-						for tempRemove != 0 {
-							digit := bits.TrailingZeros16(tempRemove) + 1
-							s.Values[s.ValuesLen] = digit
-							s.ValuesLen++
-							tempRemove &^= (1 << (digit - 1))
-						}
+						s.AddValuesFromMask(removedMask)
 
 						return s, true
 					}
