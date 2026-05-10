@@ -1,5 +1,7 @@
 package solver
 
+import "math/bits"
+
 // ActionType defines what kind of action a step represents.
 type ActionType int
 
@@ -19,4 +21,14 @@ type Step struct {
 	Values    [9]int
 	ValuesLen int
 	Action    ActionType
+}
+
+// AddValuesFromMask extracts individual digits from a bitmask and adds them to the step.
+func (s *Step) AddValuesFromMask(mask uint16) {
+	for mask != 0 {
+		digit := bits.TrailingZeros16(mask) + 1
+		s.Values[s.ValuesLen] = digit
+		s.ValuesLen++
+		mask &^= (1 << (digit - 1))
+	}
 }

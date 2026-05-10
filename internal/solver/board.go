@@ -40,7 +40,7 @@ func (b *Board) ApplyStep(s Step) {
 		}
 
 		// Recalculate Resolved
-		b.syncResolved()
+		b.SyncResolved()
 
 	case ActionEliminate:
 		// Used for Pairs/Subsets
@@ -56,11 +56,12 @@ func (b *Board) ApplyStep(s Step) {
 		}
 
 		// Recalculate Resolved
-		b.syncResolved()
+		b.SyncResolved()
 	}
 }
 
-func (b *Board) syncResolved() {
+// SyncResolved recalculates the Resolved count by scanning all cells.
+func (b *Board) SyncResolved() {
 	count := uint8(0)
 	for i := range 81 {
 		if bits.OnesCount16(b.Cells[i]) == 1 {

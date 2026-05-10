@@ -12,6 +12,7 @@ func FindNakedSingles(b *Board) (Step, bool) {
 			c := ColLUT[i]
 			box := BoxLUT[i]
 
+			// Only return a step if the cell hasn't been "officially" resolved in its houses yet
 			if (b.RowState[r]&mask) != 0 || (b.ColState[c]&mask) != 0 || (b.BoxState[box]&mask) != 0 {
 				digit := bits.TrailingZeros16(mask) + 1
 				s := Step{
@@ -36,10 +37,7 @@ func FindHiddenSingles(b *Board) (Step, bool) {
 	for hIdx := range 27 {
 		house := HouseLUT[hIdx]
 
-		var seenOnce uint16
-
-		var seenMultiple uint16
-
+		var seenOnce, seenMultiple uint16
 		for _, cellIdx := range house {
 			mask := b.Cells[cellIdx]
 			seenMultiple |= (seenOnce & mask)
@@ -53,6 +51,7 @@ func FindHiddenSingles(b *Board) (Step, bool) {
 
 			for _, cellIdx := range house {
 				if (b.Cells[cellIdx] & digitMask) != 0 {
+					// Check if it's actually hidden (i.e. cell has multiple candidates)
 					if bits.OnesCount16(b.Cells[cellIdx]) > 1 {
 						digit := bits.TrailingZeros16(digitMask) + 1
 						s := Step{
