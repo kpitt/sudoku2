@@ -4,6 +4,7 @@
   },
   "experimental": {
     "enableAgents": true,
-    "modelSteering": true
+    "modelSteering": true,
+    "autoMemory": true
   }
 }
