@@ -1,0 +1,12 @@
+{
+  "name": "superpowers",
+  "version": "6.3.0",
+  "description": "Superpowers skills and runtime bootstrap for coding agents",
+  "keywords": [
+    "skills",
+    "tdd",
+    "debugging",
+    "collaboration",
+    "workflow"
+  ]
+}
