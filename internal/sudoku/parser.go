@@ -22,7 +22,7 @@ func Parse(input string) (*Grid, error) {
 	}
 
 	g := &Grid{}
-	for idx := 0; idx < 81; idx++ {
+	for idx := range 81 {
 		ch := clean[idx]
 		if ch >= '1' && ch <= '9' {
 			g.Values[idx] = byte(ch - '0')
